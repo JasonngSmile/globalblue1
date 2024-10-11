@@ -4,4 +4,4 @@ User Story 1
 
   
 User Story 2
-- use glabalBlue run the code in visual studio code.Can refer to globalBlue readme.md file.
+- use globalBlue run the code in visual studio code.Can refer to globalBlue readme.md file.
