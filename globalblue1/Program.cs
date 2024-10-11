@@ -18,7 +18,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseMiddleware<ApiKeyMiddleware>();
 
 app.UseRouting();
 

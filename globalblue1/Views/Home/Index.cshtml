@@ -3,35 +3,30 @@
 }
 
 <div class="text-center">
-    <p>Current Value: <span id="valueDisplay">0</span></p>
-    <button id="incrementBtn">+</button>
-    <button id="decrementBtn">-</button>
+    <h2>Math Calculator</h2>
+    <input type="text" id="mathInput" placeholder="Enter math(e.g., 2 + 2)" />
+    <button onclick="calculate()">Calculate</button>
+    <p id="result"></p>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    let currentValue = 0;
-
-    document.getElementById('incrementBtn').addEventListener('click', async () => {
-        try {
-            const response = await fetch('https://localhost:7058/api/home/add', {
-                method: 'POST',
-                headers: {
-                    'X-API-KEY': 'globalblue1234',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(currentValue),
-            });
-
-            if (response.ok) {
-                const newValue = await response.json();
-                currentValue = newValue;
-                document.getElementById('valueDisplay').innerText = newValue;
-            } else {
-                alert('Error incrementing the value');
+    async function calculate() {
+        const value = document.getElementById("mathInput").value;
+        const response = await axios.post('https://localhost:7058/api/calculate', JSON.stringify(value), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': 'globalblue1234'
             }
-        } catch (error) {
-            alert('Error: ' + error.message);
-        }
-    });
 
+        });
+
+        if (response.data != null) {
+            const result = await response.data;
+            document.getElementById("result").innerText = "Result: " + result;
+        } else {
+            document.getElementById("result").innerText = "Error: Invalid Request";
+        }
+    }
 </script>
