@@ -19,9 +19,9 @@ namespace globalblue1.Controllers
                 var result = Convert.ToDecimal(table.Compute(mathRequest, string.Empty));
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Invalid Request");
+                return BadRequest(ex.Message);
             }
         }
     }

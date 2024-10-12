@@ -13,19 +13,26 @@
 <script>
     async function calculate() {
         const value = document.getElementById("mathInput").value;
-        const response = await axios.post('https://localhost:7058/api/calculate', JSON.stringify(value), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-API-KEY': 'globalblue1234'
+        try{
+            const response = await axios.post('https://localhost:7058/api/calculate', JSON.stringify(value), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': 'globalblue1234'
+                }
+
+            });
+
+            if (response.data != null) {
+                const result = await response.data;
+                document.getElementById("result").innerText = "Result: " + result;
+            } else {
+                document.getElementById("result").innerText = "Error: Invalid Request";
             }
-
-        });
-
-        if (response.data != null) {
-            const result = await response.data;
-            document.getElementById("result").innerText = "Result: " + result;
-        } else {
+        }
+        catch(error)
+        {
+            console.error(error.response.data)
             document.getElementById("result").innerText = "Error: Invalid Request";
         }
     }
